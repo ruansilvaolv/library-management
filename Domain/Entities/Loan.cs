@@ -22,7 +22,11 @@ namespace LibraryManagement.Domain.Entities
         public EUserType UserType { get; }
 
         public int CalcDaysLate()
-          => LoanDate.Day - DevolutionDate.Day;
+        {
+            if (DateTime.Now > DevolutionDate)
+                return (DateTime.Now - DevolutionDate).Days;
+            return 0;
+        }
 
         public decimal CalcFine()
         {
@@ -37,6 +41,6 @@ namespace LibraryManagement.Domain.Entities
         }
 
         public void FinalizeLoan()
-        {}
+        { }
     }
 }
