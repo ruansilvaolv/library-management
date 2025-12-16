@@ -18,21 +18,28 @@ namespace LibraryManagement.Infraestructure.UI
         {
             Console.WriteLine("Bem-vindo ao sistema de gerenciamento de Biblioteca!\n");
 
-            ShowMenu();
-            var menuOpt = _ui.ReadInt("Escolha: ");
+            int menuOpt;
 
             do
             {
-                if (menuOpt < 0 || menuOpt > 2)
-                    throw new ArgumentException("Opção desejada não existe!");
+                ShowMenu();
+                menuOpt = _ui.ReadInt("Escolha: ");
 
-                switch (menuOpt)
+                try
                 {
-                    case 0: break;
-                    case 1: RegisterBook(); break;
-                    case 2: RegisterUser(); break;
+                    switch (menuOpt)
+                    {
+                        case 0: Console.WriteLine("Encerrando sistema..."); break;
+                        case 1: RegisterBook(); break;
+                        case 2: RegisterUser(); break;
+                        default: Console.WriteLine("Opção inválida! Tente novamente."); break;
+                    }
                 }
-            } while ( menuOpt != 0);
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            } while (menuOpt != 0);
         }
 
         public void ShowMenu()
